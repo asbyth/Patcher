@@ -49,6 +49,9 @@ public class ScoreboardTransformer implements ITransformer {
         list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/ScorePlayerTeam", "func_96670_d", "()Ljava/util/Collection;", false)); // getMembershipCollection
         list.add(new MethodInsnNode(INVOKEINTERFACE, "java/util/Collection", "iterator", "()Ljava/util/Iterator;", true));
         list.add(new VarInsnNode(ASTORE, 2));
+
+        LabelNode gotoInsn = new LabelNode();
+        list.add(gotoInsn);
         list.add(new VarInsnNode(ALOAD, 2));
         list.add(new MethodInsnNode(INVOKEINTERFACE, "java/util/Iterator", "hasNext", "()Z", true));
         LabelNode ifeq = new LabelNode();
@@ -62,10 +65,8 @@ public class ScoreboardTransformer implements ITransformer {
         list.add(new VarInsnNode(ALOAD, 3));
         list.add(new MethodInsnNode(INVOKEINTERFACE, "java/util/Map", "remove", "(Ljava/lang/Object;)Ljava/lang/Object;", true));
         list.add(new InsnNode(POP));
-        LabelNode gotoNode = new LabelNode();
-        list.add(new JumpInsnNode(GOTO, gotoNode));
+        list.add(new JumpInsnNode(GOTO, gotoInsn));
         list.add(ifeq);
-        list.add(gotoNode);
 
         list.add(new VarInsnNode(ALOAD, 0));
         list.add(new VarInsnNode(ALOAD, 1));
