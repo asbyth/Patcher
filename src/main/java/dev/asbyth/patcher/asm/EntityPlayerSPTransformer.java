@@ -16,8 +16,9 @@ public class EntityPlayerSPTransformer implements ITransformer {
         for (MethodNode methodNode : classNode.methods) {
             String methodName = mapMethodName(classNode, methodNode);
 
-            if (methodName.equals("removePotionEffectClient")) {
+            if (methodName.equals("removePotionEffectClient") || methodName.equals("func_70618_n")) {
                 methodNode.instructions.insertBefore(methodNode.instructions.getFirst(), removeNauseaPortalEffect());
+                break;
             }
         }
     }

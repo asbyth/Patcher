@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import dev.asbyth.patcher.Patcher;
 import dev.asbyth.patcher.asm.EntityLivingBaseTransformer;
+import dev.asbyth.patcher.asm.ScoreboardTransformer;
 import dev.asbyth.patcher.asm.WorldTransformer;
 import dev.asbyth.patcher.tweaker.transformer.ITransformer;
 import net.minecraft.launchwrapper.IClassTransformer;
@@ -20,6 +21,7 @@ public class ClassTransformer implements IClassTransformer {
     public ClassTransformer() {
         registerTransformer(new EntityLivingBaseTransformer());
         registerTransformer(new WorldTransformer());
+        registerTransformer(new ScoreboardTransformer());
 //        registerTransformer(new EntityPlayerSPTransformer());
     }
 

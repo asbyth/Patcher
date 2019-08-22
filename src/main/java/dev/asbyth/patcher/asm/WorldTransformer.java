@@ -18,9 +18,10 @@ public class WorldTransformer implements ITransformer {
         for (MethodNode methodNode : classNode.methods) {
             String methodName = mapMethodName(classNode, methodNode);
 
-            if (methodName.equals("getHorizon")) {
+            if (methodName.equals("getHorizon") || methodName.equals("func_72919_O")) {
                 methodNode.instructions.clear();
                 methodNode.instructions.add(returnDouble());
+                break;
             }
         }
     }

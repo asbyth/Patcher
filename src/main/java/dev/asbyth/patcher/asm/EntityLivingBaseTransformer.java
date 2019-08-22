@@ -18,6 +18,7 @@ public class EntityLivingBaseTransformer implements ITransformer {
 
             if (methodName.equals("getLook") || methodName.equals("func_70676_i")) {
                 methodNode.instructions.insertBefore(methodNode.instructions.getFirst(), returnIfPlayer());
+                break;
             }
         }
     }
