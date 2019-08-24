@@ -38,6 +38,7 @@ public class RenderPlayerTransformer implements ITransformer {
         }
     }
 
+    // modelplayer.isRiding = modelplayer.isSneak = false;
     private InsnList newArmLogic() {
         InsnList list = new InsnList();
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));

@@ -26,6 +26,9 @@ public class WorldTransformer implements ITransformer {
         }
     }
 
+    /**
+     * return 0.0D;
+     */
     private InsnList returnDouble() {
         InsnList list = new InsnList();
         list.add(new InsnNode(Opcodes.DCONST_0));

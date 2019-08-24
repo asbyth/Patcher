@@ -25,6 +25,20 @@ public class ScoreboardTransformer implements ITransformer {
         }
     }
 
+    /**
+     *      if (team == null) return;
+     *
+     *      if (team.getRegisteredName() != null) {
+     *          teams.remove(team.getRegisteredName());
+     *      }
+     *
+     *      for (String members : team.getMembershipCollection()) {
+     *          teamMemberships.remove(members);
+     *      }
+     *
+     *      func_96513_c(team);
+     * }
+     */
     private InsnList fixScoreboardNPE() {
         InsnList list = new InsnList();
         list.add(new VarInsnNode(ALOAD, 1));

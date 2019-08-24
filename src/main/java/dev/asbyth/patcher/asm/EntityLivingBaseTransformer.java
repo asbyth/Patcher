@@ -23,6 +23,13 @@ public class EntityLivingBaseTransformer implements ITransformer {
         }
     }
 
+    /**
+     * if (this instanceof EntityPlayerSP) {
+     *      return super.getLook();
+     * }
+     *
+     * at HEAD
+     */
     private InsnList returnIfPlayer() {
         InsnList list = new InsnList();
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));

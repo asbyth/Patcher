@@ -22,6 +22,7 @@ public class GuiGameOverTransformer implements ITransformer {
         }
     }
 
+    // enableButtonsTimer = 0 at HEAD
     private InsnList initializeEnableButtonsTimer() {
         InsnList list = new InsnList();
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));

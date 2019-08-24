@@ -22,6 +22,11 @@ public class S2EPacketCloseWindowTransformer implements ITransformer {
         }
     }
 
+    /**
+     * if (Minecraft.getMinecraft().currentScreen instanceof GuiChat) {
+     *     return;
+     * }
+     */
     private InsnList checkScreen() {
         InsnList list = new InsnList();
         list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "net/minecraft/client/Minecraft", "func_71410_x",

@@ -34,6 +34,7 @@ public class MinecraftTransformer implements ITransformer {
         }
     }
 
+    // systemTime = 0 before System.gc() in loadWorld (near RETURN)
     private InsnList setSystemTime() {
         InsnList list = new InsnList();
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
