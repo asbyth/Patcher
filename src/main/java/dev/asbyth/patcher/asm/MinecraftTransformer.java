@@ -25,6 +25,7 @@ public class MinecraftTransformer implements ITransformer {
 
                     if (node instanceof MethodInsnNode && node.getOpcode() == Opcodes.INVOKESTATIC && ((MethodInsnNode) node).owner.equals("java/lang/System")) {
                         methodNode.instructions.insertBefore(node, setSystemTime());
+                        break;
                     }
                 }
 
