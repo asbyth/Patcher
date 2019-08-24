@@ -3,16 +3,14 @@ package dev.asbyth.patcher.tweaker;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import dev.asbyth.patcher.Patcher;
-import dev.asbyth.patcher.asm.EntityLivingBaseTransformer;
-import dev.asbyth.patcher.asm.S2EPacketCloseWindowTransformer;
-import dev.asbyth.patcher.asm.ScoreboardTransformer;
-import dev.asbyth.patcher.asm.WorldTransformer;
+import dev.asbyth.patcher.asm.*;
 import dev.asbyth.patcher.tweaker.transformer.ITransformer;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 
+import java.io.FileOutputStream;
 import java.util.Collection;
 
 public class ClassTransformer implements IClassTransformer {
@@ -24,7 +22,9 @@ public class ClassTransformer implements IClassTransformer {
         registerTransformer(new WorldTransformer());
         registerTransformer(new ScoreboardTransformer());
         registerTransformer(new S2EPacketCloseWindowTransformer());
-//        registerTransformer(new EntityPlayerSPTransformer());
+        registerTransformer(new GuiGameOverTransformer());
+        registerTransformer(new MinecraftTransformer());
+        registerTransformer(new RenderPlayerTransformer());
     }
 
     private void registerTransformer(ITransformer transformer) {
