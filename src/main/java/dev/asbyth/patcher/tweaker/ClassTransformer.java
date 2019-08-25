@@ -20,6 +20,7 @@ public class ClassTransformer implements IClassTransformer {
     public ClassTransformer() {
         registerTransformer(new EntityLivingBaseTransformer());
         registerTransformer(new WorldTransformer());
+        registerTransformer(new ChunkTransformer());
         registerTransformer(new ScoreboardTransformer());
         registerTransformer(new S2EPacketCloseWindowTransformer());
         registerTransformer(new GuiGameOverTransformer());
