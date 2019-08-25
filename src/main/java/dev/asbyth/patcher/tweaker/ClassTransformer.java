@@ -25,6 +25,7 @@ public class ClassTransformer implements IClassTransformer {
         registerTransformer(new GuiGameOverTransformer());
         registerTransformer(new MinecraftTransformer());
         registerTransformer(new RenderPlayerTransformer());
+        registerTransformer(new ScreenShotHelperTransformer());
     }
 
     private void registerTransformer(ITransformer transformer) {
@@ -58,6 +59,14 @@ public class ClassTransformer implements IClassTransformer {
         } catch (Throwable t) {
             Patcher.LOGGER.error("Exception when transforming " + transformedName + " : " + t.getClass().getSimpleName());
             t.printStackTrace();
+        }
+
+        try {
+            FileOutputStream out = new FileOutputStream("C:\\Users\\Jack\\Desktop\\projects\\Patcher\\bytecode\\Bytecode.class");
+            out.write(writer.toByteArray());
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return writer.toByteArray();
