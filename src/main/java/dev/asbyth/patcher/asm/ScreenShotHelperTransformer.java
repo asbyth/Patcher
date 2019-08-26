@@ -16,7 +16,8 @@ public class ScreenShotHelperTransformer implements ITransformer {
             String methodName = mapMethodName(classNode, methodNode);
             String methodDesc = mapMethodDesc(methodNode);
 
-            if ((methodName.equals("saveScreenshot")) && methodDesc.equals("(Ljava/io/File;Ljava/lang/String;IILnet/minecraft/client/shader/Framebuffer;)Lnet/minecraft/util/IChatComponent;")) {
+            if ((methodName.equals("saveScreenshot")) &&
+                    methodDesc.equals("(Ljava/io/File;Ljava/lang/String;IILnet/minecraft/client/shader/Framebuffer;)Lnet/minecraft/util/IChatComponent;")) {
                 methodNode.instructions.clear();
                 methodNode.tryCatchBlocks.clear();
                 methodNode.localVariables.clear();
@@ -35,7 +36,7 @@ public class ScreenShotHelperTransformer implements ITransformer {
         list.add(new VarInsnNode(Opcodes.ILOAD, 2));
         list.add(new VarInsnNode(Opcodes.ILOAD, 3));
         list.add(new VarInsnNode(Opcodes.ALOAD, 4));
-        list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "dev/asbyth/patcher/asm/helpers/ScreenShotHelperHook",
+        list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "dev/asbyth/patcher/util/helpers/ScreenShotHelperHook",
                 "saveScreenshot", "(Ljava/io/File;Ljava/lang/String;IILnet/minecraft/client/shader/Framebuffer;)Lnet/minecraft/util/IChatComponent;",
                 false));
         list.add(new InsnNode(Opcodes.ARETURN));

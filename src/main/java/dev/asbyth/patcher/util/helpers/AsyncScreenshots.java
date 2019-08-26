@@ -1,4 +1,4 @@
-package dev.asbyth.patcher.asm.helpers;
+package dev.asbyth.patcher.util.helpers;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;

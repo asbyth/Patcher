@@ -1,4 +1,4 @@
-package dev.asbyth.patcher.asm.helpers;
+package dev.asbyth.patcher.util.helpers;
 
 import dev.asbyth.patcher.util.Multithreading;
 import net.minecraft.client.Minecraft;
