@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import dev.asbyth.patcher.Patcher;
 import dev.asbyth.patcher.asm.*;
+import dev.asbyth.patcher.asm.forge.ClientCommandHandlerTransformer;
 import dev.asbyth.patcher.tweaker.transformer.ITransformer;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.ClassReader;
@@ -27,6 +28,7 @@ public class ClassTransformer implements IClassTransformer {
         registerTransformer(new MinecraftTransformer());
         registerTransformer(new RenderPlayerTransformer());
         registerTransformer(new ScreenShotHelperTransformer());
+        registerTransformer(new ClientCommandHandlerTransformer());
     }
 
     private void registerTransformer(ITransformer transformer) {
