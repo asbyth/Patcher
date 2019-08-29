@@ -16,10 +16,7 @@ public class InventoryEffectRendererTransformer implements ITransformer {
             String methodName = mapMethodName(classNode, methodNode);
 
             if (methodName.equals("updateActivePotionEffects") || methodName.equals("func_175378_g")) {
-                methodNode.instructions.clear();
-                methodNode.localVariables.clear();
-
-                methodNode.instructions.insert(newEffectLogic());
+                methodNode.instructions.insertBefore(methodNode.instructions.getFirst(), newEffectLogic());
                 break;
             }
         }
@@ -27,6 +24,9 @@ public class InventoryEffectRendererTransformer implements ITransformer {
 
     private InsnList newEffectLogic() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "INVENTORY_POSITION", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
         list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "net/minecraft/client/Minecraft", "func_71410_x", // getMinecraft
                 "()Lnet/minecraft/client/Minecraft;", false));
@@ -54,6 +54,7 @@ public class InventoryEffectRendererTransformer implements ITransformer {
         list.add(new InsnNode(Opcodes.IDIV));
         list.add(new FieldInsnNode(Opcodes.PUTFIELD, "net/minecraft/client/renderer/InventoryEffectRenderer", "field_147003_i", "I")); // guiLeft
         list.add(new InsnNode(Opcodes.RETURN));
+        list.add(ifeq);
         return list;
     }
 }

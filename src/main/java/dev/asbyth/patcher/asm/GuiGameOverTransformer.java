@@ -25,9 +25,13 @@ public class GuiGameOverTransformer implements ITransformer {
     // enableButtonsTimer = 0 at HEAD
     private InsnList initializeEnableButtonsTimer() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "DEATH_SCREEN", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
         list.add(new InsnNode(Opcodes.ICONST_0));
         list.add(new FieldInsnNode(Opcodes.PUTFIELD, "net/minecraft/client/gui/GuiGameOver", "field_146347_a", "I")); // enableButtonsTimer
+        list.add(ifeq);
         return list;
     }
 }

@@ -18,12 +18,7 @@ public class ScreenShotHelperTransformer implements ITransformer {
 
             if ((methodName.equals("saveScreenshot") || methodName.equals("func_148259_a")) &&
                     methodDesc.equals("(Ljava/io/File;Ljava/lang/String;IILnet/minecraft/client/shader/Framebuffer;)Lnet/minecraft/util/IChatComponent;")) {
-                methodNode.instructions.clear();
-                methodNode.tryCatchBlocks.clear();
-                methodNode.localVariables.clear();
-                methodNode.exceptions.clear();
-
-                methodNode.instructions.add(betterScreenshots());
+                methodNode.instructions.insertBefore(methodNode.instructions.getFirst(), betterScreenshots());
                 break;
             }
         }
@@ -31,6 +26,9 @@ public class ScreenShotHelperTransformer implements ITransformer {
 
     private InsnList betterScreenshots() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "ASYNC_SCREENSHOTS", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
         list.add(new VarInsnNode(Opcodes.ALOAD, 1));
         list.add(new VarInsnNode(Opcodes.ILOAD, 2));
@@ -40,6 +38,7 @@ public class ScreenShotHelperTransformer implements ITransformer {
                 "saveScreenshot", "(Ljava/io/File;Ljava/lang/String;IILnet/minecraft/client/shader/Framebuffer;)Lnet/minecraft/util/IChatComponent;",
                 false));
         list.add(new InsnNode(Opcodes.ARETURN));
+        list.add(ifeq);
         return list;
     }
 }

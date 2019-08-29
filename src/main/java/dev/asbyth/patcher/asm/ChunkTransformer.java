@@ -31,8 +31,12 @@ public class ChunkTransformer implements ITransformer {
 
     private InsnList setBrightness() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "FULLBRIGHT", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new IntInsnNode(Opcodes.BIPUSH, 15));
         list.add(new InsnNode(Opcodes.IRETURN));
+        list.add(ifeq);
         return list;
     }
 }

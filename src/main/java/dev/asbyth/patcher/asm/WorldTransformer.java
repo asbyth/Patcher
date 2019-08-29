@@ -27,8 +27,7 @@ public class WorldTransformer implements ITransformer {
             String methodName = mapMethodName(classNode, methodNode);
 
             if (methodName.equals("getHorizon") || methodName.equals("func_72919_O")) {
-                methodNode.instructions.clear();
-                methodNode.instructions.add(returnDouble());
+                methodNode.instructions.insertBefore(methodNode.instructions.getFirst(), returnDouble());
                 break;
             }
 
@@ -41,15 +40,19 @@ public class WorldTransformer implements ITransformer {
 
     private InsnList setBrightness() {
         InsnList list = new InsnList();
-        list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "net/minecraft/client/Minecraft", "func_71410_x",
-                "()Lnet/minecraft/client/Minecraft;", false)); // getMinecraft
-        list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/Minecraft", "func_152345_ab",
-                "()Z", false)); // isCallingFromMinecraftThread
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "FULLBRIGHT", "Z"));
         LabelNode ifeq = new LabelNode();
         list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
+        list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "net/minecraft/client/Minecraft", "func_71410_x", // getMinecraft
+                "()Lnet/minecraft/client/Minecraft;", false));
+        list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/Minecraft", "func_152345_ab", // isCallingFromMinecraftThread
+                "()Z", false));
+        LabelNode ifeq1 = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq1));
         list.add(new IntInsnNode(Opcodes.BIPUSH, 15));
         list.add(new InsnNode(Opcodes.IRETURN));
         list.add(ifeq);
+        list.add(ifeq1);
         return list;
     }
 
@@ -58,8 +61,12 @@ public class WorldTransformer implements ITransformer {
      */
     private InsnList returnDouble() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "FULLBRIGHT", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new InsnNode(Opcodes.DCONST_0));
         list.add(new InsnNode(Opcodes.DRETURN));
+        list.add(ifeq);
         return list;
     }
 }

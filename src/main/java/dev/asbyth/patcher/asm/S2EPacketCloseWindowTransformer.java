@@ -29,14 +29,18 @@ public class S2EPacketCloseWindowTransformer implements ITransformer {
      */
     private InsnList checkScreen() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "CLOSING_CHAT", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "net/minecraft/client/Minecraft", "func_71410_x", // getMinecraft
                 "()Lnet/minecraft/client/Minecraft;", false));
         list.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/Minecraft", "field_71462_r", "Lnet/minecraft/client/gui/GuiScreen;")); // currentScreen
         list.add(new TypeInsnNode(Opcodes.INSTANCEOF, "net/minecraft/client/gui/GuiChat"));
-        LabelNode ifeq = new LabelNode();
-        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
+        LabelNode ifeq1 = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq1));
         list.add(new InsnNode(Opcodes.RETURN));
         list.add(ifeq);
+        list.add(ifeq1);
         return list;
     }
 }

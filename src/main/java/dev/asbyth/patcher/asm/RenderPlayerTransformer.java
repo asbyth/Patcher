@@ -25,10 +25,7 @@ public class RenderPlayerTransformer implements ITransformer {
                     AbstractInsnNode node = iterator.next();
 
                     if (node instanceof VarInsnNode && node.getOpcode() == Opcodes.ALOAD && ((VarInsnNode) node).var == 3 && node.getNext().getOpcode() == Opcodes.ICONST_0) {
-                        methodNode.instructions.remove(node.getNext());
-                        methodNode.instructions.remove(node.getNext());
                         methodNode.instructions.insertBefore(node, newArmLogic());
-                        methodNode.instructions.remove(node);
                         break;
                     }
                 }
@@ -41,6 +38,9 @@ public class RenderPlayerTransformer implements ITransformer {
     // modelplayer.isRiding = modelplayer.isSneak = false;
     private InsnList newArmLogic() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "PLAYER_ARM", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
         list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/client/renderer/entity/RenderPlayer", "func_177087_b",
                 "()Lnet/minecraft/client/model/ModelBase;", false)); // getMainModel
@@ -52,6 +52,7 @@ public class RenderPlayerTransformer implements ITransformer {
         list.add(new InsnNode(Opcodes.DUP_X1));
         list.add(new FieldInsnNode(Opcodes.PUTFIELD, "net/minecraft/client/model/ModelPlayer", "field_78117_n", "Z")); // isSneak
         list.add(new FieldInsnNode(Opcodes.PUTFIELD, "net/minecraft/client/model/ModelPlayer", "field_78093_q", "Z")); // isRiding
+        list.add(ifeq);
         return list;
     }
 }

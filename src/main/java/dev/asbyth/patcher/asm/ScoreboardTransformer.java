@@ -1,6 +1,7 @@
 package dev.asbyth.patcher.asm;
 
 import dev.asbyth.patcher.tweaker.transformer.ITransformer;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
 import static org.objectweb.asm.Opcodes.*;
@@ -18,8 +19,7 @@ public class ScoreboardTransformer implements ITransformer {
             String methodName = mapMethodName(classNode, methodNode);
 
             if (methodName.equals("removeTeam") || methodName.equals("func_147194_f")) {
-                methodNode.instructions.clear();
-                methodNode.instructions.add(fixScoreboardNPE());
+                methodNode.instructions.insertBefore(methodNode.instructions.getFirst(), fixScoreboardNPE());
                 break;
             }
         }
@@ -41,6 +41,9 @@ public class ScoreboardTransformer implements ITransformer {
      */
     private InsnList fixScoreboardNPE() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "INTERNAL_ERROR", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new VarInsnNode(ALOAD, 1));
         LabelNode ifNonNull = new LabelNode();
         list.add(new JumpInsnNode(IFNONNULL, ifNonNull));
@@ -72,8 +75,8 @@ public class ScoreboardTransformer implements ITransformer {
         list.add(gotoInsn);
         list.add(new VarInsnNode(ALOAD, 2));
         list.add(new MethodInsnNode(INVOKEINTERFACE, "java/util/Iterator", "hasNext", "()Z", true));
-        LabelNode ifeq = new LabelNode();
-        list.add(new JumpInsnNode(IFEQ, ifeq));
+        LabelNode ifeq1 = new LabelNode();
+        list.add(new JumpInsnNode(IFEQ, ifeq1));
         list.add(new VarInsnNode(ALOAD, 2));
         list.add(new MethodInsnNode(INVOKEINTERFACE, "java/util/Iterator", "next", "()Ljava/lang/Object;", true));
         list.add(new TypeInsnNode(CHECKCAST, "java/lang/String"));
@@ -85,13 +88,14 @@ public class ScoreboardTransformer implements ITransformer {
         list.add(new MethodInsnNode(INVOKEINTERFACE, "java/util/Map", "remove", "(Ljava/lang/Object;)Ljava/lang/Object;", true));
         list.add(new InsnNode(POP));
         list.add(new JumpInsnNode(GOTO, gotoInsn));
-        list.add(ifeq);
+        list.add(ifeq1);
 
         list.add(new VarInsnNode(ALOAD, 0));
         list.add(new VarInsnNode(ALOAD, 1));
         list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/Scoreboard", "func_96513_c", // no mcp name
                 "(Lnet/minecraft/scoreboard/ScorePlayerTeam;)V", false));
         list.add(new InsnNode(RETURN));
+        list.add(ifeq);
         return list;
     }
 }

@@ -51,20 +51,28 @@ public class MinecraftTransformer implements ITransformer {
 
     private InsnList setResizable() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "FULLSCREEN", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new InsnNode(Opcodes.ICONST_0));
         list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "org/lwjgl/opengl/Display", "setResizable", "(Z)V", false));
         list.add(new InsnNode(Opcodes.ICONST_1));
         list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "org/lwjgl/opengl/Display", "setResizable", "(Z)V", false));
+        list.add(ifeq);
         return list;
     }
 
     // systemTime = 0 before System.gc() in loadWorld (near RETURN)
     private InsnList setSystemTime() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "WORLD_SWITCHING", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
         list.add(new InsnNode(Opcodes.LCONST_0));
         list.add(new FieldInsnNode(Opcodes.PUTFIELD, "net/minecraft/client/Minecraft", "field_71423_H", "J")); // systemTime
         list.add(new InsnNode(Opcodes.RETURN));
+        list.add(ifeq);
         return list;
     }
 }

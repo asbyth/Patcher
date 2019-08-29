@@ -32,6 +32,9 @@ public class EntityLivingBaseTransformer implements ITransformer {
      */
     private InsnList returnIfPlayer() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "MOUSE_DELAY", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
         list.add(new TypeInsnNode(Opcodes.INSTANCEOF, "net/minecraft/client/entity/EntityPlayerSP"));
         LabelNode labelNode = new LabelNode();
@@ -40,6 +43,7 @@ public class EntityLivingBaseTransformer implements ITransformer {
         list.add(new VarInsnNode(Opcodes.FLOAD, 1));
         list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "net/minecraft/entity/Entity", "func_70676_i", "(F)Lnet/minecraft/util/Vec3;", false)); // getLook
         list.add(new InsnNode(Opcodes.ARETURN));
+        list.add(ifeq);
         list.add(labelNode);
         return list;
     }

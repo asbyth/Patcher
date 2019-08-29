@@ -27,6 +27,9 @@ public class ClientCommandHandlerTransformer implements ITransformer {
 
     private InsnList checkCommandString() {
         InsnList list = new InsnList();
+        list.add(new FieldInsnNode(Opcodes.GETSTATIC, "dev/asbyth/patcher/config/Settings", "COMMAND_HANDLER", "Z"));
+        LabelNode ifeq = new LabelNode();
+        list.add(new JumpInsnNode(Opcodes.IFEQ, ifeq));
         list.add(new VarInsnNode(Opcodes.ALOAD, 2));
         list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "java/lang/String", "trim", "()Ljava/lang/String;", false));
         list.add(new LdcInsnNode("/"));
@@ -35,6 +38,7 @@ public class ClientCommandHandlerTransformer implements ITransformer {
         list.add(new JumpInsnNode(Opcodes.IFNE, ifne));
         list.add(new InsnNode(Opcodes.ICONST_0));
         list.add(new InsnNode(Opcodes.IRETURN));
+        list.add(ifeq);
         list.add(ifne);
         return list;
     }
