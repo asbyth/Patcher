@@ -16,7 +16,7 @@ public class ScreenShotHelperTransformer implements ITransformer {
             String methodName = mapMethodName(classNode, methodNode);
             String methodDesc = mapMethodDesc(methodNode);
 
-            if ((methodName.equals("saveScreenshot")) &&
+            if ((methodName.equals("saveScreenshot") || methodName.equals("func_148259_a")) &&
                     methodDesc.equals("(Ljava/io/File;Ljava/lang/String;IILnet/minecraft/client/shader/Framebuffer;)Lnet/minecraft/util/IChatComponent;")) {
                 methodNode.instructions.clear();
                 methodNode.tryCatchBlocks.clear();
