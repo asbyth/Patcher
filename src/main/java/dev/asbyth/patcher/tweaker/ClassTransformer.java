@@ -28,6 +28,8 @@ public class ClassTransformer implements IClassTransformer {
         registerTransformer(new MinecraftTransformer());
         registerTransformer(new RenderPlayerTransformer());
         registerTransformer(new ScreenShotHelperTransformer());
+        registerTransformer(new InventoryEffectRendererTransformer());
+
         registerTransformer(new ClientCommandHandlerTransformer());
     }
 
