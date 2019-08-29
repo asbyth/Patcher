@@ -31,7 +31,30 @@ public class MinecraftTransformer implements ITransformer {
 
                 break;
             }
+
+            if (methodName.equals("toggleFullscreen") || methodName.equals("func_71352_k")) {
+                ListIterator<AbstractInsnNode> iterator = methodNode.instructions.iterator();
+
+                while (iterator.hasNext()) {
+                    AbstractInsnNode node = iterator.next();
+                    if (node instanceof MethodInsnNode && node.getOpcode() == Opcodes.INVOKESTATIC && ((MethodInsnNode) node).name.equals("setFullscreen")) {
+                        methodNode.instructions.insert(node, setResizable());
+                        break;
+                    }
+                }
+
+                break;
+            }
         }
+    }
+
+    private InsnList setResizable() {
+        InsnList list = new InsnList();
+        list.add(new InsnNode(Opcodes.ICONST_0));
+        list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "org/lwjgl/opengl/Display", "setResizable", "(Z)V", false));
+        list.add(new InsnNode(Opcodes.ICONST_1));
+        list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "org/lwjgl/opengl/Display", "setResizable", "(Z)V", false));
+        return list;
     }
 
     // systemTime = 0 before System.gc() in loadWorld (near RETURN)
