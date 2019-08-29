@@ -1,0 +1,11 @@
+[
+  {
+    "modid": "patcher_mod",
+    "name": "Patcher",
+    "version": "${version}",
+    "mcversion": "1.8.9",
+    "authorList": [
+      "asbyth"
+    ]
+  }
+]

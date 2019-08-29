@@ -48,19 +48,23 @@ public class ScoreboardTransformer implements ITransformer {
         list.add(ifNonNull);
 
         list.add(new VarInsnNode(ALOAD, 1));
-        list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/ScorePlayerTeam", "func_96661_b", "()Ljava/lang/String;", false)); // getRegisteredName
+        list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/ScorePlayerTeam", "func_96661_b", // getRegisteredName
+                "()Ljava/lang/String;", false));
         LabelNode ifNull = new LabelNode();
         list.add(new JumpInsnNode(IFNULL, ifNull));
         list.add(new VarInsnNode(ALOAD, 0));
-        list.add(new FieldInsnNode(GETFIELD, "net/minecraft/scoreboard/Scoreboard", "field_96542_e", "Ljava/util/Map;")); // teams
+        list.add(new FieldInsnNode(GETFIELD, "net/minecraft/scoreboard/Scoreboard", "field_96542_e", // teams
+                "Ljava/util/Map;"));
         list.add(new VarInsnNode(ALOAD, 1));
-        list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/ScorePlayerTeam", "func_96661_b", "()Ljava/lang/String;", false)); // getRegisteredName
+        list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/ScorePlayerTeam", "func_96661_b", // getRegisteredName
+                "()Ljava/lang/String;", false));
         list.add(new MethodInsnNode(INVOKEINTERFACE, "java/util/Map", "remove", "(Ljava/lang/Object;)Ljava/lang/Object;", true));
         list.add(new InsnNode(POP));
         list.add(ifNull);
 
         list.add(new VarInsnNode(ALOAD, 1));
-        list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/ScorePlayerTeam", "func_96670_d", "()Ljava/util/Collection;", false)); // getMembershipCollection
+        list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/ScorePlayerTeam", "func_96670_d", // getMembershipCollection
+                "()Ljava/util/Collection;", false));
         list.add(new MethodInsnNode(INVOKEINTERFACE, "java/util/Collection", "iterator", "()Ljava/util/Iterator;", true));
         list.add(new VarInsnNode(ASTORE, 2));
 
@@ -75,7 +79,8 @@ public class ScoreboardTransformer implements ITransformer {
         list.add(new TypeInsnNode(CHECKCAST, "java/lang/String"));
         list.add(new VarInsnNode(ASTORE, 3));
         list.add(new VarInsnNode(ALOAD, 0));
-        list.add(new FieldInsnNode(GETFIELD, "net/minecraft/scoreboard/Scoreboard", "field_96540_f", "Ljava/util/Map;")); // teamMemberships
+        list.add(new FieldInsnNode(GETFIELD, "net/minecraft/scoreboard/Scoreboard", "field_96540_f", // teamMemberships
+                "Ljava/util/Map;"));
         list.add(new VarInsnNode(ALOAD, 3));
         list.add(new MethodInsnNode(INVOKEINTERFACE, "java/util/Map", "remove", "(Ljava/lang/Object;)Ljava/lang/Object;", true));
         list.add(new InsnNode(POP));
@@ -84,8 +89,8 @@ public class ScoreboardTransformer implements ITransformer {
 
         list.add(new VarInsnNode(ALOAD, 0));
         list.add(new VarInsnNode(ALOAD, 1));
-        list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/Scoreboard", "func_96513_c",
-                "(Lnet/minecraft/scoreboard/ScorePlayerTeam;)V", false)); // no mcp name
+        list.add(new MethodInsnNode(INVOKEVIRTUAL, "net/minecraft/scoreboard/Scoreboard", "func_96513_c", // no mcp name
+                "(Lnet/minecraft/scoreboard/ScorePlayerTeam;)V", false));
         list.add(new InsnNode(RETURN));
         return list;
     }

@@ -7,6 +7,7 @@ import org.objectweb.asm.tree.*;
 import java.util.ListIterator;
 
 public class MinecraftTransformer implements ITransformer {
+
     @Override
     public String[] getClassName() {
         return new String[]{"net.minecraft.client.Minecraft"};

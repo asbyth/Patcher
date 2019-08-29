@@ -38,7 +38,7 @@ public class EntityLivingBaseTransformer implements ITransformer {
         list.add(new JumpInsnNode(Opcodes.IFEQ, labelNode));
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
         list.add(new VarInsnNode(Opcodes.FLOAD, 1));
-        list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "net/minecraft/entity/Entity", "func_70676_i", "(F)Lnet/minecraft/util/Vec3;", false));
+        list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "net/minecraft/entity/Entity", "func_70676_i", "(F)Lnet/minecraft/util/Vec3;", false)); // getLook
         list.add(new InsnNode(Opcodes.ARETURN));
         list.add(labelNode);
         return list;
