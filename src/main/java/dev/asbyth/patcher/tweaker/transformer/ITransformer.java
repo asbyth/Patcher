@@ -16,8 +16,4 @@ public interface ITransformer {
     default String mapMethodDesc(MethodNode methodNode) {
         return FMLDeobfuscatingRemapper.INSTANCE.mapMethodDesc(methodNode.desc);
     }
-
-    default String mapFieldName(ClassNode classNode, FieldNode fieldNode) {
-        return FMLDeobfuscatingRemapper.INSTANCE.mapFieldName(classNode.name, fieldNode.name, fieldNode.desc);
-    }
 }

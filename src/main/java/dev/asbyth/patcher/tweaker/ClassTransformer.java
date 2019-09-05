@@ -66,14 +66,6 @@ public class ClassTransformer implements IClassTransformer {
             t.printStackTrace();
         }
 
-        try {
-            FileOutputStream out = new FileOutputStream("C:\\Users\\Jack\\Desktop\\projects\\Patcher\\bytecode\\Bytecode.class");
-            out.write(writer.toByteArray());
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         return writer.toByteArray();
     }
 }
