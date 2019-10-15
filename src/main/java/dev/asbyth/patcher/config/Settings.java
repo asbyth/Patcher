@@ -14,4 +14,5 @@ public class Settings {
     public static boolean PLAYER_ARM; // 9
     public static boolean VOID_FLICKERING; // 10
     public static boolean WORLD_SWITCHING; // 11
+    public static boolean NAUSEA_EFFECT;
 }

@@ -11,7 +11,6 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 
-import java.io.FileOutputStream;
 import java.util.Collection;
 
 public class ClassTransformer implements IClassTransformer {
@@ -19,18 +18,18 @@ public class ClassTransformer implements IClassTransformer {
     private final Multimap<String, ITransformer> transformerMap = ArrayListMultimap.create();
 
     public ClassTransformer() {
-        registerTransformer(new EntityLivingBaseTransformer());
-        registerTransformer(new WorldTransformer());
+        registerTransformer(new ClientCommandHandlerTransformer());
         registerTransformer(new ChunkTransformer());
-        registerTransformer(new ScoreboardTransformer());
-        registerTransformer(new S2EPacketCloseWindowTransformer());
+        registerTransformer(new EntityLivingBaseTransformer());
+        registerTransformer(new EntityPlayerSPTransformer());
         registerTransformer(new GuiGameOverTransformer());
+        registerTransformer(new InventoryEffectRendererTransformer());
         registerTransformer(new MinecraftTransformer());
         registerTransformer(new RenderPlayerTransformer());
+        registerTransformer(new S2EPacketCloseWindowTransformer());
+        registerTransformer(new ScoreboardTransformer());
         registerTransformer(new ScreenShotHelperTransformer());
-        registerTransformer(new InventoryEffectRendererTransformer());
-
-        registerTransformer(new ClientCommandHandlerTransformer());
+        registerTransformer(new WorldTransformer());
     }
 
     private void registerTransformer(ITransformer transformer) {

@@ -40,6 +40,9 @@ public class PatcherGui extends AbstractScreen {
                 getSuffix(VOID_FLICKERING, "Void Flickering")));
         buttonList.add(new GuiButton(11, getCenter() + 5, getRowPos(6), 150, 20,
                 getSuffix(WORLD_SWITCHING, "World Switching")));
+
+        buttonList.add(new GuiButton(12, getCenter() - 155, getRowPos(7), 150, 20,
+                getSuffix(NAUSEA_EFFECT, "Nausea Effect")));
     }
 
     @Override
@@ -112,6 +115,10 @@ public class PatcherGui extends AbstractScreen {
                 button.displayString = getSuffix(WORLD_SWITCHING, "World Switching");
                 break;
 
+            case 12:
+                NAUSEA_EFFECT = !NAUSEA_EFFECT;
+                button.displayString = getSuffix(NAUSEA_EFFECT, "Nausea Effect");
+                break;
         }
     }
 
@@ -153,6 +160,9 @@ public class PatcherGui extends AbstractScreen {
 
             case 11:
                 return I18n.format("gui.description.worldswitching");
+
+            case 12:
+                return I18n.format("gui.description.nauseaeffect");
         }
 
         return null;

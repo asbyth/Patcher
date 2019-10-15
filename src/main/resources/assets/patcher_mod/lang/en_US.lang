@@ -10,3 +10,4 @@ gui.description.mousedelay=In 1.8, your mouse is delayed, causing the block and 
 gui.description.playerarm=When moving an entity and toggling perspective, your arm position is offset when returning to first person._pThis is fixed by properly checking the players current state.
 gui.description.voidflickering=The void sky box is set to Y level 63 on normal worlds, while it's set to 0 on Superflat worlds._pThis makes it so it's always set to 0, so unless if you go under 0, your skybox shouldn't flicker.
 gui.description.worldswitching=Switching worlds causes the game to Garbage Collect (clear up memory, in other words), causing you to freeze while switching, which can lead to a disadvantage in some cases where you need to be there immediately._pThis makes world switching nearly instant.
+gui.description.nauseaeffect=Clearing Nausea with milk causes a Nether Portal animation to appear. This removes that animation.
